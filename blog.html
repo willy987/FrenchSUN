@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog FrenchSun - Actualités, conseils et innovations sur l'énergie solaire en France. Découvrez nos articles pour optimiser votre production d'énergie verte.">
+
+    <title>Blog - FrenchSun</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles communs -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Styles spécifiques au blog -->
+    <style>
+        /* Styles pour la page blog */
+        .blog-hero {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(52, 152, 219, 0.9)),
+                        url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .blog-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .article-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .article-meta i {
+            margin-right: 5px;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .article-title a {
+            color: var(--dark-color);
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .article-excerpt {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .sidebar-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .sidebar-list {
+            list-style: none;
+        }
+
+        .sidebar-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-list li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-list a {
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .sidebar-list a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-sidebar {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <!-- Loading Spinner -->
+    <div id="global-loading" class="loading-overlay">
+        <div class="loading-content">
+            <i class="fas fa-spinner fa-spin fa-3x" aria-hidden="true"></i>
+            <p>Chargement du blog...</p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" aria-label="FrenchSun - Accueil">
+                    <svg class="french-sun-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" role="img" aria-labelledby="french-sun-title french-sun-description">
+                        <title id="french-sun-title">French Sun</title>
+                        <desc id="french-sun-description">Logo French Sun</desc>
+                        <defs>
+                            <clipPath id="french-sun-circle"><circle cx="200" cy="200" r="190" /></clipPath>
+                            <linearGradient id="french-sun-orange" x1="70" y1="40" x2="330" y2="280" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#FFD21A" /><stop offset="55%" stop-color="#FFBE00" /><stop offset="100%" stop-color="#FFA800" />
+                            </linearGradient>
+                            <linearGradient id="french-sun-light-green" x1="20" y1="120" x2="390" y2="250" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#B5D91C" /><stop offset="50%" stop-color="#9BCB20" /><stop offset="100%" stop-color="#78B922" />
+                            </linearGradient>
+                            <linearGradient id="french-sun-main-green" x1="20" y1="170" x2="390" y2="300" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#20B85B" /><stop offset="55%" stop-color="#12A64E" /><stop offset="100%" stop-color="#078D45" />
+                            </linearGradient>
+                            <linearGradient id="french-sun-dark-green" x1="10" y1="230" x2="390" y2="350" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#07814A" /><stop offset="55%" stop-color="#006E43" /><stop offset="100%" stop-color="#005C3C" />
+                            </linearGradient>
+                            <linearGradient id="french-sun-deep-green" x1="20" y1="290" x2="380" y2="400" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#006847" /><stop offset="55%" stop-color="#00583E" /><stop offset="100%" stop-color="#004532" />
+                            </linearGradient>
+                        </defs>
+                        <g clip-path="url(#french-sun-circle)">
+                            <rect x="0" y="0" width="400" height="400" fill="url(#french-sun-orange)"/>
+                            <path d="M -20 112 C 40 106 88 117 142 148 C 197 180 250 200 303 199 C 344 198 378 187 420 165 L 420 420 L -20 420 Z" fill="url(#french-sun-light-green)"/>
+                            <path d="M -20 145 C 37 141 79 163 126 207 C 175 253 214 276 259 274 C 310 271 350 232 420 217 L 420 420 L -20 420 Z" fill="url(#french-sun-main-green)"/>
+                            <path d="M -20 232 C 37 220 83 232 132 259 C 180 286 222 301 264 291 C 319 278 356 245 420 235 L 420 420 L -20 420 Z" fill="url(#french-sun-dark-green)"/>
+                            <path d="M -20 319 C 35 307 91 321 143 326 C 195 331 237 316 279 287 C 326 254 366 235 420 231 L 420 420 L -20 420 Z" fill="url(#french-sun-deep-green)"/>
+                        </g>
+                        <g font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="start">
+                            <text x="435" y="205" fill="#FFFFFF" font-size="150" letter-spacing="-7">French</text>
+                            <text x="435" y="335" fill="#079448" font-size="150" letter-spacing="-7">SUN</text>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+
+            <nav class="desktop-nav" role="navigation" aria-label="Navigation principale">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Accueil</a></li>
+                    <li><a href="explorer.html"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Explorer</a></li>
+                    <li><a href="calculateur.html"><i class="fas fa-calculator" aria-hidden="true"></i> Calculateur</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog" aria-hidden="true"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="Navigation principale">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Accueil</a></li>
+                    <li><a href="explorer.html"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Explorer</a></li>
+                    <li><a href="calculateur.html"><i class="fas fa-calculator" aria-hidden="true"></i> Calculateur</a></li>
+                    <li><a href="blog.html"><i class="fas fa-blog" aria-hidden="true"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="blog-hero" aria-labelledby="blog-hero-title">
+        <div class="hero-container">
+            <h1 id="blog-hero-title">Blog FrenchSun</h1>
+            <p>Découvrez nos articles sur l'énergie solaire, les innovations et les conseils pour optimiser votre installation</p>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <section class="section" aria-labelledby="blog-title">
+            <div class="blog-container">
+                <!-- ARTICLES -->
+                <div class="blog-articles">
+                    <!-- Article 1 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b234c2473?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Panneaux solaires sur un toit" class="article-image" loading="lazy">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 15 juillet 2026</span>
+                                <span><i class="fas fa-user" aria-hidden="true"></i> Par l'équipe FrenchSun</span>
+                                <span><i class="fas fa-tag" aria-hidden="true"></i> Conseils</span>
+                            </div>
+                            <h2 class="article-title">
+                                <a href="#">Comment optimiser votre installation solaire en 2026</a>
+                            </h2>
+                            <p class="article-excerpt">
+                                Découvrez les dernières techniques pour maximiser le rendement de vos panneaux solaires.
+                                De l'orientation idéale à l'entretien régulier, nous vous donnons toutes les clés pour
+                                produire plus d'énergie verte.
+                            </p>
+                            <a href="#" class="read-more">Lire la suite <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Innovation panneaux solaires" class="article-image" loading="lazy">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 8 juillet 2026</span>
+                                <span><i class="fas fa-user" aria-hidden="true"></i> Par Jean Dupont</span>
+                                <span><i class="fas fa-tag" aria-hidden="true"></i> Innovations</span>
+                            </div>
+                            <h2 class="article-title">
+                                <a href="#">Les dernières innovations en matière de panneaux photovoltaïques</a>
+                            </h2>
+                            <p class="article-excerpt">
+                                Les technologies solaires évoluent rapidement. Découvrez les panneaux à haut rendement,
+                                les solutions de stockage intelligentes et les nouvelles générations de cellules
+                                photovoltaïques qui vont révolutionner le marché.
+                            </p>
+                            <a href="#" class="read-more">Lire la suite <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Aides financières solaire" class="article-image" loading="lazy">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 1 juillet 2026</span>
+                                <span><i class="fas fa-user" aria-hidden="true"></i> Par Marie Martin</span>
+                                <span><i class="fas fa-tag" aria-hidden="true"></i> Financement</span>
+                            </div>
+                            <h2 class="article-title">
+                                <a href="#">Subventions et aides financières pour le solaire en France en 2026</a>
+                            </h2>
+                            <p class="article-excerpt">
+                                Maîtrisez les dispositifs d'aides pour votre projet solaire : prime à l'autoconsommation,
+                                TVA réduite, subventions locales... Nous faisons le point sur toutes les opportunités
+                                pour réduire le coût de votre installation.
+                            </p>
+                            <a href="#" class="read-more">Lire la suite <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Carte France solaire" class="article-image" loading="lazy">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 24 juin 2026</span>
+                                <span><i class="fas fa-user" aria-hidden="true"></i> Par Pierre Lambert</span>
+                                <span><i class="fas fa-tag" aria-hidden="true"></i> Analyse</span>
+                            </div>
+                            <h2 class="article-title">
+                                <a href="#">Le potentiel solaire par région en France : où installer ses panneaux ?</a>
+                            </h2>
+                            <p class="article-excerpt">
+                                Toutes les régions françaises n'ont pas le même ensoleillement. Nous analysons les
+                                différences régionales et vous aidons à déterminer les meilleurs endroits pour
+                                installer vos panneaux solaires.
+                            </p>
+                            <a href="#" class="read-more">Lire la suite <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                             alt="Batterie stockage solaire" class="article-image" loading="lazy">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> 18 juin 2026</span>
+                                <span><i class="fas fa-user" aria-hidden="true"></i> Par Sophie Moreau</span>
+                                <span><i class="fas fa-tag" aria-hidden="true"></i> Équipement</span>
+                            </div>
+                            <h2 class="article-title">
+                                <a href="#">Batteries solaires : comment choisir la bonne solution de stockage ?</a>
+                            </h2>
+                            <p class="article-excerpt">
+                                Le stockage de l'énergie solaire est devenu indispensable. Nous comparons les différentes
+                                technologies de batteries (lithium-ion, plomb, etc.) et vous aidons à choisir
+                                celle qui correspond le mieux à vos besoins.
+                            </p>
+                            <a href="#" class="read-more">Lire la suite <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- SIDEBAR -->
+                <aside class="blog-sidebar">
+                    <!-- Recherche -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-search" aria-hidden="true"></i> Rechercher</h3>
+                        <form class="search-form">
+                            <input type="search" placeholder="Rechercher dans le blog..." class="search-input">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+
+                    <!-- Catégories -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-folder-open" aria-hidden="true"></i> Catégories</h3>
+                        <ul class="sidebar-list">
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Conseils pratiques (5)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Innovations (3)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Financement (2)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Analyse régionale (4)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Équipement (3)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Actualités (6)</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Articles récents -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-clock" aria-hidden="true"></i> Articles récents</h3>
+                        <ul class="sidebar-list">
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Optimiser son installation (15 juil.)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Innovations 2026 (8 juil.)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Aides financières (1 juil.)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Potentiel par région (24 juin)</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" aria-hidden="true"></i> Stockage solaire (18 juin)</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Nuage de tags -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title"><i class="fas fa-tags" aria-hidden="true"></i> Tags populaires</h3>
+                        <div class="tag-cloud">
+                            <a href="#" class="tag">Solaire</a>
+                            <a href="#" class="tag">Photovoltaïque</a>
+                            <a href="#" class="tag">Énergie verte</a>
+                            <a href="#" class="tag">Subventions</a>
+                            <a href="#" class="tag">Rendement</a>
+                            <a href="#" class="tag">Installation</a>
+                            <a href="#" class="tag">Batteries</a>
+                            <a href="#" class="tag">Autoconsommation</a>
+                            <a href="#" class="tag">France</a>
+                            <a href="#" class="tag">Innovation</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+        <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>À propos de FrenchSun</h3>
+                <p>FrenchSun est votre partenaire pour l'analyse du potentiel solaire en France. Nous fournissons des données précises et à jour pour vous aider à prendre les meilleures décisions pour vos projets solaires.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook FrenchSun"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Twitter FrenchSun"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="LinkedIn FrenchSun"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram FrenchSun"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Utiles</h3>
+                <ul>
+                    <li><a href="explorer.html" aria-label="Explorer les données solaires">Explorer les données</a></li>
+                    <li><a href="calculateur.html" aria-label="Calculer mon potentiel solaire">Calculer mon potentiel</a></li>
+                    <li><a href="contact.html" aria-label="Contact FrenchSun">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ressources</h3>
+                <ul>
+                    <li><a href="#" aria-label="Foire aux questions">FAQ</a></li>
+                    <li><a href="#" aria-label="Documentation technique">Documentation</a></li>
+                    <li><a href="blog.html" aria-label="Blog FrenchSun">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 123 Rue de l'Énergie, Paris</li>
+                    <li><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+33123456789">+33 1 23 45 67 89</a></li>
+                    <li><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:contact@frenchsun.fr">contact@frenchsun.fr</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 <strong>FrenchSun</strong>. Tous droits réservés. | Données : Météo France, PVGIS, ADEME</p>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle btn btn-outline" aria-label="Basculer en mode sombre">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal" role="alertdialog" aria-hidden="true" aria-labelledby="error-title" aria-describedby="error-message">
+        <div class="modal-content">
+            <h2 id="error-title"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Erreur</h2>
+            <p id="error-message">Une erreur est survenue. Veuillez réessayer plus tard.</p>
+            <button id="error-close" class="btn btn-primary" aria-label="Fermer">OK</button>
+        </div>
+    </div>
+
+    <!-- Script unique pour tout le site -->
+    <script src="script.js"></script>
+</body>
+</html>
